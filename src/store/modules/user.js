@@ -1,4 +1,8 @@
-import { loginByUsername, logout, getUserInfo } from '@/api/login'
+import {
+  loginByUsername,
+  logout,
+  getUserInfo
+} from '@/api/login'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 
 const user = {
@@ -56,6 +60,15 @@ const user = {
         }).catch(error => {
           reject(error)
         })
+        // AV.User.logIn(username, userInfo.password).then(function(loginedUser) {
+        //   console.log(loginedUser)
+        //   commit('SET_TOKEN', loginedUser._sessionToken)
+        //   setToken(loginedUser._sessionToken)
+        //   resolve(loginedUser)
+        //   // 请注意，密码不会明文存储在云端，因此密码只能重置，不能查看
+        // }, function(error) {
+        //   reject(error)
+        // })
       })
     },
 
