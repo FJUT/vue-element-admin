@@ -80,42 +80,42 @@ export const asyncRouterMap = [
     }]
   },
 
-  {
-    path: '/icon',
-    component: Layout,
-    children: [{
-      path: 'index',
-      component: _import('svg-icons/index'),
-      name: 'icons',
-      meta: { title: 'icons', icon: 'icon', noCache: true }
-    }]
-  },
+  // {
+  //   path: '/icon',
+  //   component: Layout,
+  //   children: [{
+  //     path: 'index',
+  //     component: _import('svg-icons/index'),
+  //     name: 'icons',
+  //     meta: { title: 'icons', icon: 'icon', noCache: true }
+  //   }]
+  // },
 
-  {
-    path: '/components',
-    component: Layout,
-    redirect: 'noredirect',
-    name: 'component-demo',
-    meta: {
-      title: 'components',
-      icon: 'component'
-    },
-    children: [
-      { path: 'tinymce', component: _import('components-demo/tinymce'), name: 'tinymce-demo', meta: { title: 'tinymce' }},
-      { path: 'markdown', component: _import('components-demo/markdown'), name: 'markdown-demo', meta: { title: 'markdown' }},
-      { path: 'json-editor', component: _import('components-demo/jsonEditor'), name: 'jsonEditor-demo', meta: { title: 'jsonEditor' }},
-      { path: 'dnd-list', component: _import('components-demo/dndList'), name: 'dndList-demo', meta: { title: 'dndList' }},
-      { path: 'splitpane', component: _import('components-demo/splitpane'), name: 'splitpane-demo', meta: { title: 'splitPane' }},
-      { path: 'avatar-upload', component: _import('components-demo/avatarUpload'), name: 'avatarUpload-demo', meta: { title: 'avatarUpload' }},
-      { path: 'dropzone', component: _import('components-demo/dropzone'), name: 'dropzone-demo', meta: { title: 'dropzone' }},
-      { path: 'sticky', component: _import('components-demo/sticky'), name: 'sticky-demo', meta: { title: 'sticky' }},
-      { path: 'count-to', component: _import('components-demo/countTo'), name: 'countTo-demo', meta: { title: 'countTo' }},
-      { path: 'mixin', component: _import('components-demo/mixin'), name: 'componentMixin-demo', meta: { title: 'componentMixin' }},
-      { path: 'back-to-top', component: _import('components-demo/backToTop'), name: 'backToTop-demo', meta: { title: 'backToTop' }},
-      { path: 'drag-dialog', component: _import('components-demo/dragDialog'), name: 'dragDialog-demo', meta: { title: 'dragDialog' }},
-      { path: 'drag-kanban', component: _import('components-demo/dragKanban'), name: 'dragKanban-demo', meta: { title: 'dragKanban' }}
-    ]
-  },
+  // {
+  //   path: '/components',
+  //   component: Layout,
+  //   redirect: 'noredirect',
+  //   name: 'component-demo',
+  //   meta: {
+  //     title: 'components',
+  //     icon: 'component'
+  //   },
+  //   children: [
+  //     { path: 'tinymce', component: _import('components-demo/tinymce'), name: 'tinymce-demo', meta: { title: 'tinymce' }},
+  //     { path: 'markdown', component: _import('components-demo/markdown'), name: 'markdown-demo', meta: { title: 'markdown' }},
+  //     { path: 'json-editor', component: _import('components-demo/jsonEditor'), name: 'jsonEditor-demo', meta: { title: 'jsonEditor' }},
+  //     { path: 'dnd-list', component: _import('components-demo/dndList'), name: 'dndList-demo', meta: { title: 'dndList' }},
+  //     { path: 'splitpane', component: _import('components-demo/splitpane'), name: 'splitpane-demo', meta: { title: 'splitPane' }},
+  //     { path: 'avatar-upload', component: _import('components-demo/avatarUpload'), name: 'avatarUpload-demo', meta: { title: 'avatarUpload' }},
+  //     { path: 'dropzone', component: _import('components-demo/dropzone'), name: 'dropzone-demo', meta: { title: 'dropzone' }},
+  //     { path: 'sticky', component: _import('components-demo/sticky'), name: 'sticky-demo', meta: { title: 'sticky' }},
+  //     { path: 'count-to', component: _import('components-demo/countTo'), name: 'countTo-demo', meta: { title: 'countTo' }},
+  //     { path: 'mixin', component: _import('components-demo/mixin'), name: 'componentMixin-demo', meta: { title: 'componentMixin' }},
+  //     { path: 'back-to-top', component: _import('components-demo/backToTop'), name: 'backToTop-demo', meta: { title: 'backToTop' }},
+  //     { path: 'drag-dialog', component: _import('components-demo/dragDialog'), name: 'dragDialog-demo', meta: { title: 'dragDialog' }},
+  //     { path: 'drag-kanban', component: _import('components-demo/dragKanban'), name: 'dragKanban-demo', meta: { title: 'dragKanban' }}
+  //   ]
+  // },
 
   {
     path: '/charts',
@@ -180,27 +180,27 @@ export const asyncRouterMap = [
     ]
   },
 
-  {
-    path: '/error',
-    component: Layout,
-    redirect: 'noredirect',
-    name: 'errorPages',
-    meta: {
-      title: 'errorPages',
-      icon: '404'
-    },
-    children: [
-      { path: '401', component: _import('errorPage/401'), name: 'page401', meta: { title: 'page401', noCache: true }},
-      { path: '404', component: _import('errorPage/404'), name: 'page404', meta: { title: 'page404', noCache: true }}
-    ]
-  },
+  // {
+  //   path: '/error',
+  //   component: Layout,
+  //   redirect: 'noredirect',
+  //   name: 'errorPages',
+  //   meta: {
+  //     title: 'errorPages',
+  //     icon: '404'
+  //   },
+  //   children: [
+  //     { path: '401', component: _import('errorPage/401'), name: 'page401', meta: { title: 'page401', noCache: true }},
+  //     { path: '404', component: _import('errorPage/404'), name: 'page404', meta: { title: 'page404', noCache: true }}
+  //   ]
+  // },
 
-  {
-    path: '/error-log',
-    component: Layout,
-    redirect: 'noredirect',
-    children: [{ path: 'log', component: _import('errorLog/index'), name: 'errorLog', meta: { title: 'errorLog', icon: 'bug' }}]
-  },
+  // {
+  //   path: '/error-log',
+  //   component: Layout,
+  //   redirect: 'noredirect',
+  //   children: [{ path: 'log', component: _import('errorLog/index'), name: 'errorLog', meta: { title: 'errorLog', icon: 'bug' }}]
+  // },
 
   {
     path: '/excel',
@@ -218,28 +218,28 @@ export const asyncRouterMap = [
     ]
   },
 
-  {
-    path: '/zip',
-    component: Layout,
-    redirect: '/zip/download',
-    alwaysShow: true,
-    meta: { title: 'zip', icon: 'zip' },
-    children: [{ path: 'download', component: _import('zip/index'), name: 'exportZip', meta: { title: 'exportZip' }}]
-  },
+  // {
+  //   path: '/zip',
+  //   component: Layout,
+  //   redirect: '/zip/download',
+  //   alwaysShow: true,
+  //   meta: { title: 'zip', icon: 'zip' },
+  //   children: [{ path: 'download', component: _import('zip/index'), name: 'exportZip', meta: { title: 'exportZip' }}]
+  // },
 
-  {
-    path: '/theme',
-    component: Layout,
-    redirect: 'noredirect',
-    children: [{ path: 'index', component: _import('theme/index'), name: 'theme', meta: { title: 'theme', icon: 'theme' }}]
-  },
+  // {
+  //   path: '/theme',
+  //   component: Layout,
+  //   redirect: 'noredirect',
+  //   children: [{ path: 'index', component: _import('theme/index'), name: 'theme', meta: { title: 'theme', icon: 'theme' }}]
+  // },
 
-  {
-    path: '/clipboard',
-    component: Layout,
-    redirect: 'noredirect',
-    children: [{ path: 'index', component: _import('clipboard/index'), name: 'clipboardDemo', meta: { title: 'clipboardDemo', icon: 'clipboard' }}]
-  },
+  // {
+  //   path: '/clipboard',
+  //   component: Layout,
+  //   redirect: 'noredirect',
+  //   children: [{ path: 'index', component: _import('clipboard/index'), name: 'clipboardDemo', meta: { title: 'clipboardDemo', icon: 'clipboard' }}]
+  // },
 
   {
     path: '/i18n',
