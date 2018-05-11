@@ -53,6 +53,17 @@ export const constantRouterMap = [
       name: 'documentation',
       meta: { title: 'documentation', icon: 'documentation', noCache: true }
     }]
+  },
+  {
+    path: '/users',
+    component: Layout,
+    redirect: '/users/index',
+    children: [{
+      path: 'index',
+      component: _import('users/index'),
+      name: 'users',
+      meta: { title: 'users', icon: 'documentation', noCache: true }
+    }]
   }
 ]
 
