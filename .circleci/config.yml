@@ -17,6 +17,10 @@ jobs:
       - run:
           name: Install npm wee
           command: npm install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - node_modules
       - run:
           name: Deploy to Github Pages
           command: |
@@ -33,13 +37,9 @@ jobs:
             git commit -m "[`date '+%F %T %Z'`] New release"
             # Push
             git push origin gh_pages:gh_pages
-      - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-          paths:
-            - node_modules
   test:
     docker:
-      - image: circleci/node:4.8.2
+      - image: circleci/node:8.0.0
       #- image: mongo:3.4.4
     steps:
       - checkout
