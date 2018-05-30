@@ -19,7 +19,7 @@ jobs:
           command: npm install
       - run:
           name: deploy
-          command: . deploy.sh
+          command: ./circleci/deploy.sh
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
