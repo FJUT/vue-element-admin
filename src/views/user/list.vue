@@ -156,6 +156,7 @@ import { fetchList, fetchPv, createArticle, updateArticle } from '@/api/article'
 import waves from '@/directive/waves' // 水波纹指令
 import { parseTime } from '@/utils'
 const uuidGenerator = require('uuid/v4')
+console.log(uuidGenerator())
 
 const calendarTypeOptions = [
   { key: 'CN', display_name: 'China' },
