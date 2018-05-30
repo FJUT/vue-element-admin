@@ -30,7 +30,8 @@ export function parseTime(time, cFormat) {
   if (typeof time === 'object') {
     date = time
   } else {
-    date = new Date(parseInt(time))
+    date = new Date(time)
+    // date = new Date(parseInt(time))
   }
   const formatObj = {
     y: date.getFullYear(),

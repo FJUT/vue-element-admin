@@ -85,6 +85,17 @@ export default {
     backToTopTips2: '可自定义按钮的样式、show/hide、出现的高度、返回的位置 如需文字提示，可在外部使用Element的el-tooltip元素',
     imageUploadTips: '由于我在使用时它只有vue@1版本，而且和mockjs不兼容，所以自己改造了一下，如果大家要使用的话，优先还是使用官方版本。'
   },
+  user: {
+    create_time: '创建时间',
+    session_key: '会话key',
+    last_visit_time: '上次访问时间',
+    open_id: 'openid',
+    skey: 'skey',
+    user_info: '用户信息',
+    uuid: 'uuid',
+    login_name: '登录名',
+    login_password: '登陆密码'
+  },
   table: {
     dynamicTips1: '固定表头, 按照表头顺序排序',
     dynamicTips2: '不固定表头, 按照点击顺序排序',
