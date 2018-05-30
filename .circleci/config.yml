@@ -26,9 +26,10 @@ jobs:
           command: |
             git config --global user.email gt@kainy.cn
             git config --global user.name CircleCI
+            sed -i'' "s~git@github.com:FJUT/vue-element-admin.git~https://${GH_TOKEN}:x-oauth-basic@github.com/kainy/admin.kainy.cn.git~" ./.git/config
             #stack exec site rebuild
             npm run build:sit
-            git checkout gh_pages
+            git checkout master
             git pull --rebase
             # Overwrite existing files with new files
             cp -a dist/. .
@@ -36,7 +37,7 @@ jobs:
             git add --all
             git commit -m "[`date '+%F %T %Z'`] New release"
             # Push
-            git push origin gh_pages:gh_pages
+            git push origin master:master
   test:
     docker:
       - image: circleci/node:8.0.0
