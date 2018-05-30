@@ -18,8 +18,21 @@ jobs:
           name: Install npm wee
           command: npm install
       - run:
-          name: deploy
-          command: ./circleci/deploy.sh
+          name: Deploy to Github Pages
+          command: |
+            git config --global user.email gt@kainy.cn
+            git config --global user.name CircleCI
+            #stack exec site rebuild
+            npm run build:sit
+            git checkout gh_pages
+            git pull --rebase
+            # Overwrite existing files with new files
+            cp -a dist/. .
+            #  Commit
+            git add --all
+            git commit -m "[`date '+%F %T %Z'`] New release"
+            # Push
+            git push origin gh_pages:gh_pages
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
