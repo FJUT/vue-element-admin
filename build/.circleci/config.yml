@@ -10,7 +10,7 @@ dependencies:
 
 deployment:
   production:
-    branch: master
+    branch: my-wafer2
     commands:
       - git config --global user.name "CircleCI"
       - git config --global user.email "gt@kainy.cn"
