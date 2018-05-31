@@ -32,11 +32,16 @@ service.interceptors.response.use(
     */
     const res = response.data
     if (res.code !== 0) {
+      let message = res.message
+      if (res.code === -1) {
+        message = res.error
+      }
       Message({
-        message: res.message,
+        message,
         type: 'error',
         duration: 5 * 1000
       })
+      console.error(message)
       // 50008:非法的token; 50012:其他客户端登录了;  50014:Token 过期了;
       if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
         Message.confirm('你已被登出，可以取消继续留在该页面，或者重新登录。', '确定登出', {

@@ -23,7 +23,7 @@
 
     <el-table :key='tableKey' :data="list" v-loading="listLoading" element-loading-text="给我一点时间" border fit highlight-current-row
       style="width: 100%">
-      <el-table-column align="center" :label="$t('user.uuid')" width="65">
+      <el-table-column align="center" :label="$t('user.uuid')" width="165">
         <template slot-scope="scope">
           <span>{{scope.row.uuid}}</span>
         </template>
@@ -117,6 +117,9 @@
         <el-form-item :label="$t('user.login_name')" prop="login_name">
           <el-input v-model="temp.login_name"></el-input>
         </el-form-item>
+         <el-form-item :label="$t('user.login_password')" prop="login_password">
+          <el-input v-model="temp.login_password" type="password"></el-input>
+        </el-form-item>
         <!-- <el-form-item :label="$t('table.status')">
           <el-select class="filter-item" v-model="temp.status" placeholder="Please select">
             <el-option v-for="item in  statusOptions" :key="item" :label="item" :value="item">
@@ -208,9 +211,9 @@ export default {
       dialogPvVisible: false,
       pvData: [],
       rules: {
-        type: [{ required: true, message: 'type is required', trigger: 'change' }],
+        login_name: [{ required: true, message: 'login name is required', trigger: 'blur' }],
         timestamp: [{ type: 'date', required: true, message: 'timestamp is required', trigger: 'change' }],
-        title: [{ required: true, message: 'title is required', trigger: 'blur' }]
+        login_password: [{ required: true, message: 'password is required', trigger: 'blur' }]
       },
       downloadLoading: false
     }
@@ -283,8 +286,9 @@ export default {
         if (valid) {
           this.temp.uuid = parseInt(Math.random() * 100) + 1024 // mock a id
           this.temp.author = 'vue-element-admin'
-          createArticle(this.temp).then(() => {
-            this.list.unshift(this.temp)
+          createArticle(this.temp).then((res) => {
+            console.log(res)
+            this.list.unshift(res.data)
             this.dialogFormVisible = false
             this.$notify({
               title: '成功',
@@ -292,7 +296,7 @@ export default {
               type: 'success',
               duration: 2000
             })
-          })
+          }).catch(console.error)
         }
       })
     },
