@@ -287,7 +287,7 @@ export default {
           this.temp.uuid = parseInt(Math.random() * 100) + 1024 // mock a id
           this.temp.author = 'vue-element-admin'
           createArticle(this.temp).then((res) => {
-            console.log(res)
+            // console.log(res)
             this.list.unshift(res.data)
             this.dialogFormVisible = false
             this.$notify({
