@@ -23,7 +23,7 @@
 
     <el-table :key='tableKey' :data="list" v-loading="listLoading" element-loading-text="给我一点时间" border fit highlight-current-row
       style="width: 100%">
-      <el-table-column align="center" :label="$t('user.uuid')" width="165">
+      <el-table-column align="center" :label="$t('user.uuid')" width="165" v-if='showReviewer'>
         <template slot-scope="scope">
           <span>{{scope.row.uuid}}</span>
         </template>
@@ -33,14 +33,14 @@
           <span>{{scope.row.create_time | parseTime('{y}-{m}-{d} {h}:{i}')}}</span>
         </template>
       </el-table-column>
-      <el-table-column width="150px" align="center" :label="$t('user.last_visit_time')">
+      <el-table-column width="150px" align="center" :label="$t('user.last_visit_time')" v-if='showReviewer'>
         <template slot-scope="scope">
           <span>{{scope.row.last_visit_time | parseTime('{y}-{m}-{d} {h}:{i}')}}</span>
         </template>
       </el-table-column>
       <el-table-column min-width="150px" :label="$t('user.open_id')">
         <template slot-scope="scope">
-          <span class="link-type" @click="handleUpdate(scope.row)">{{scope.row.open_id}}</span>
+          <span>{{scope.row.open_id}}</span>
         </template>
       </el-table-column>
       <el-table-column min-width="150px" :label="$t('user.user_info')">
@@ -48,7 +48,7 @@
           <span class="link-type" @click="handleUpdate(scope.row)">{{scope.row.user_info}}</span>
         </template>
       </el-table-column>
-      <el-table-column width="110px" align="center" :label="$t('user.session_key')">
+      <el-table-column width="110px" align="center" :label="$t('user.session_key')" v-if='showReviewer'>
         <template slot-scope="scope">
           <span>{{scope.row.session_key}}</span>
         </template>
@@ -60,7 +60,7 @@
       </el-table-column>
       <el-table-column width="110px" align="center" :label="$t('user.login_name')">
         <template slot-scope="scope">
-          <span style='color:red;'>{{scope.row.login_name}}</span>
+          <span class="link-type" @click="handleUpdate(scope.row)" style='color:red;'>{{scope.row.login_name}}</span>
         </template>
       </el-table-column>
       <el-table-column width="110px" v-if='showReviewer' align="center" :label="$t('user.login_password')">
