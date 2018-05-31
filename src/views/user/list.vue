@@ -63,7 +63,7 @@
           <span style='color:red;'>{{scope.row.login_name}}</span>
         </template>
       </el-table-column>
-      <el-table-column width="110px" align="center" :label="$t('user.login_password')">
+      <el-table-column width="110px" v-if='showReviewer' align="center" :label="$t('user.login_password')">
         <template slot-scope="scope">
           <span style='color:red;'>{{scope.row.login_password}}</span>
         </template>
@@ -155,8 +155,8 @@
 import { fetchList, fetchPv, createArticle, updateArticle } from '@/api/article'
 import waves from '@/directive/waves' // 水波纹指令
 import { parseTime } from '@/utils'
-const uuidGenerator = require('uuid/v4')
-console.log(uuidGenerator())
+// const uuidGenerator = require('uuid/v4')
+// console.log(uuidGenerator())
 
 const calendarTypeOptions = [
   { key: 'CN', display_name: 'China' },
@@ -236,7 +236,7 @@ export default {
       this.listLoading = true
       fetchList(this.listQuery).then(response => {
         this.list = response.data.items
-        this.total = response.data.total
+        this.total = 10 || response.data.total
         this.listLoading = false
       })
     },
