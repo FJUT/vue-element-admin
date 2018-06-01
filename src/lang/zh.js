@@ -88,13 +88,15 @@ export default {
   user: {
     create_time: '创建时间',
     session_key: '会话key',
-    last_visit_time: '上次访问时间',
+    last_visit_time: '上次登录时间',
     open_id: 'openid',
     skey: 'skey',
     user_info: '用户信息',
     uuid: 'uuid',
     login_name: '登录名',
-    login_password: '登陆密码'
+    login_password: '登陆密码',
+    show_detail: '详情',
+    keyword: '搜索关键字'
   },
   table: {
     dynamicTips1: '固定表头, 按照表头顺序排序',

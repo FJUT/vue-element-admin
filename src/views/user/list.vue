@@ -1,7 +1,7 @@
 <template>
   <div class="app-container calendar-list-container">
     <div class="filter-container">
-      <el-input @keyup.enter.native="handleFilter" style="width: 200px;" class="filter-item" :placeholder="$t('table.title')" v-model="listQuery.title">
+      <el-input @keyup.enter.native="handleFilter" style="width: 200px;" class="filter-item" :placeholder="$t('user.keyword')" v-model="listQuery.keyword">
       </el-input>
       <el-select clearable style="width: 90px" class="filter-item" v-model="listQuery.importance" :placeholder="$t('table.importance')">
         <el-option v-for="item in importanceOptions" :key="item" :label="item" :value="item">
@@ -18,7 +18,7 @@
       <el-button class="filter-item" type="primary" v-waves icon="el-icon-search" @click="handleFilter">{{$t('table.search')}}</el-button>
       <el-button class="filter-item" style="margin-left: 10px;" @click="handleCreate" type="primary" icon="el-icon-edit">{{$t('table.add')}}</el-button>
       <el-button class="filter-item" type="primary" :loading="downloadLoading" v-waves icon="el-icon-download" @click="handleDownload">{{$t('table.export')}}</el-button>
-      <el-checkbox class="filter-item" style='margin-left:15px;' @change='tableKey=tableKey+1' v-model="showReviewer">{{$t('table.reviewer')}}</el-checkbox>
+      <el-checkbox class="filter-item" style='margin-left:15px;' @change='tableKey=tableKey+1' v-model="showReviewer">{{$t('user.show_detail')}}</el-checkbox>
     </div>
 
     <el-table :key='tableKey' :data="list" v-loading="listLoading" element-loading-text="给我一点时间" border fit highlight-current-row
@@ -28,12 +28,12 @@
           <span>{{scope.row.uuid}}</span>
         </template>
       </el-table-column>
-      <el-table-column width="150px" align="center" :label="$t('user.create_time')">
+      <el-table-column width="150px" align="center" :label="$t('user.create_time')" v-if='showReviewer'>
         <template slot-scope="scope">
           <span>{{scope.row.create_time | parseTime('{y}-{m}-{d} {h}:{i}')}}</span>
         </template>
       </el-table-column>
-      <el-table-column width="150px" align="center" :label="$t('user.last_visit_time')" v-if='showReviewer'>
+      <el-table-column width="150px" align="center" :label="$t('user.last_visit_time')">
         <template slot-scope="scope">
           <span>{{scope.row.last_visit_time | parseTime('{y}-{m}-{d} {h}:{i}')}}</span>
         </template>
@@ -90,9 +90,9 @@
           <!-- <el-button v-if="scope.row.status!='published'" size="mini" type="success" @click="handleModifyStatus(scope.row,'published')">{{$t('table.publish')}}
           </el-button>
           <el-button v-if="scope.row.status!='draft'" size="mini" @click="handleModifyStatus(scope.row,'draft')">{{$t('table.draft')}}
-          </el-button>
-          <el-button v-if="scope.row.status!='deleted'" size="mini" type="danger" @click="handleModifyStatus(scope.row,'deleted')">{{$t('table.delete')}}
           </el-button> -->
+          <el-button v-if="scope.row.status!='deleted'" size="mini" type="danger" @click="handleModifyStatus(scope.row,'deleted')">{{$t('table.delete')}}
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -189,13 +189,18 @@ export default {
         page: 1,
         limit: 20,
         importance: undefined,
-        title: undefined,
+        keyword: undefined,
         type: undefined,
-        sort: '+id'
+        sort: 'last_visit_time||desc'
       },
       importanceOptions: [1, 2, 3],
       calendarTypeOptions,
-      sortOptions: [{ label: 'ID Ascending', key: '+id' }, { label: 'ID Descending', key: '-id' }],
+      sortOptions: [
+        { label: 'last_visit_time Ascending', key: 'last_visit_time||asce' },
+        { label: 'last_visit_time Descending', key: 'last_visit_time||desc' },
+        { label: 'create_time Ascending', key: 'create_time||asce' },
+        { label: 'create_time Descending', key: 'create_time||desc' }
+      ],
       statusOptions: ['published', 'draft', 'deleted'],
       showReviewer: false,
       temp: {
@@ -239,7 +244,7 @@ export default {
       this.listLoading = true
       fetchList(this.listQuery).then(response => {
         this.list = response.data.items
-        this.total = 10 || response.data.total
+        this.total = response.data.total
         this.listLoading = false
       })
     },
