@@ -155,9 +155,10 @@
 </template>
 
 <script>
-import { fetchList, fetchPv, createArticle, updateArticle } from '@/api/article'
+import { fetchList, fetchPv, createArticle, updateArticle, deleteArticle } from '@/api/article'
 import waves from '@/directive/waves' // 水波纹指令
 import { parseTime } from '@/utils'
+
 // const uuidGenerator = require('uuid/v4')
 // console.log(uuidGenerator())
 
@@ -261,11 +262,25 @@ export default {
       this.getList()
     },
     handleModifyStatus(row, status) {
-      this.$message({
-        message: '操作成功',
-        type: 'success'
+      // console.log(row)
+      this.$confirm('是否确认删除： ' + row.login_name, '操作确认', {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        deleteArticle({
+          uuid: row.uuid
+        }).then(res => {
+          this.getList()
+          this.$message({
+            message: '操作成功',
+            type: 'success'
+          })
+        })
+        // row.status = status
+      }).catch(() => {
+        return
       })
-      row.status = status
     },
     resetTemp() {
       this.temp = {

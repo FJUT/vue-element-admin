@@ -31,6 +31,14 @@ export function createArticle(data) {
   })
 }
 
+export function deleteArticle(data) {
+  return request({
+    url: '/user/delete',
+    method: 'post',
+    data
+  })
+}
+
 export function updateArticle(data) {
   return request({
     url: '/user/update',
