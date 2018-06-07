@@ -43,6 +43,11 @@
           <span>{{scope.row.open_id}}</span>
         </template>
       </el-table-column>
+      <el-table-column min-width="150px" :label="$t('user.roles')">
+        <template slot-scope="scope">
+          <span>{{scope.row.roles}}</span>
+        </template>
+      </el-table-column>
       <el-table-column min-width="150px" :label="$t('user.user_info')">
         <template slot-scope="scope">
           <span class="link-type" @click="handleUpdate(scope.row)">{{scope.row.user_info}}</span>
@@ -117,8 +122,11 @@
         <el-form-item :label="$t('user.login_name')" prop="login_name">
           <el-input v-model="temp.login_name"></el-input>
         </el-form-item>
-         <el-form-item :label="$t('user.login_password')" prop="login_password">
+        <el-form-item :label="$t('user.login_password')" prop="login_password">
           <el-input v-model="temp.login_password" type="password"></el-input>
+        </el-form-item>
+        <el-form-item :label="$t('user.roles')" prop="roles">
+          <el-input v-model="temp.roles"></el-input>
         </el-form-item>
         <!-- <el-form-item :label="$t('table.status')">
           <el-select class="filter-item" v-model="temp.status" placeholder="Please select">
@@ -130,8 +138,9 @@
           <el-rate style="margin-top:8px;" v-model="temp.importance" :colors="['#99A9BF', '#F7BA2A', '#FF9900']" :max='3'></el-rate>
         </el-form-item> -->
         <el-form-item :label="$t('user.user_info')">
-          <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 4}" placeholder="Please input" v-model="temp.user_info">
-          </el-input>
+          <!-- <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 4}" placeholder="Please input" v-model="temp.user_info">
+          </el-input> -->
+          <json-editor ref="jsonEditor" v-model="temp.user_info"></json-editor>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -158,6 +167,9 @@
 import { fetchList, fetchPv, createArticle, updateArticle, deleteArticle } from '@/api/article'
 import waves from '@/directive/waves' // 水波纹指令
 import { parseTime } from '@/utils'
+import Multiselect from 'vue-multiselect'// 使用的一个多选框组件，element-ui的select不能满足所有需求
+import 'vue-multiselect/dist/vue-multiselect.min.css'// 多选框组件css
+import JsonEditor from '@/components/JsonEditor'
 
 // const uuidGenerator = require('uuid/v4')
 // console.log(uuidGenerator())
@@ -177,6 +189,7 @@ const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
 
 export default {
   name: 'complexTable',
+  components: { Multiselect, JsonEditor },
   directives: {
     waves
   },
@@ -206,7 +219,8 @@ export default {
       showReviewer: false,
       temp: {
         user_info: '{}',
-        login_name: ''
+        login_name: '',
+        roles: ''
       },
       dialogFormVisible: false,
       dialogStatus: '',

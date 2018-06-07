@@ -26,7 +26,7 @@ export default {
     value(value) {
       const editor_value = this.jsonEditor.getValue()
       if (value !== editor_value) {
-        this.jsonEditor.setValue(JSON.stringify(this.value, null, 2))
+        this.jsonEditor.setValue(this.formatJSON(this.value))
       }
     }
   },
@@ -39,7 +39,7 @@ export default {
       lint: true
     })
 
-    this.jsonEditor.setValue(JSON.stringify(this.value, null, 2))
+    this.jsonEditor.setValue(this.formatJSON(this.value))
     this.jsonEditor.on('change', cm => {
       this.$emit('changed', cm.getValue())
       this.$emit('input', cm.getValue())
@@ -48,6 +48,15 @@ export default {
   methods: {
     getValue() {
       return this.jsonEditor.getValue()
+    },
+    formatJSON(str) {
+      let ret
+      try {
+        ret = JSON.parse(str)
+      } catch (e) {
+        ret = {}
+      }
+      return JSON.stringify(ret, null, 2)
     }
   }
 }
