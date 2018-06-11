@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Message } from 'element-ui'
+import { Message, MessageBox } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
 
@@ -35,25 +35,29 @@ service.interceptors.response.use(
       let message = res.message
       if (res.code === -1) {
         message = res.error
-      }
-      Message({
-        message,
-        type: 'error',
-        duration: 5 * 1000
-      })
-      console.warn('request warn: ', message)
+        Message({
+          message,
+          type: 'error',
+          duration: 5 * 1000
+        })
+        console.warn('request warn: ', message)
+      } else
       // 50008:非法的token; 50012:其他客户端登录了;  50014:Token 过期了;
       if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
-        this.$confirm('你已被登出，可以取消继续留在该页面，或者重新登录。', '确定登出', {
+        MessageBox({
+          title: '登出确认',
+          message: '你已被登出，可以取消继续留在该页面，或者重新登录。',
           confirmButtonText: '重新登录',
+          showCancelButton: true,
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
           store.dispatch('FedLogOut').then(() => {
             location.reload()// 为了重新实例化vue-router对象 避免bug
           })
-        })
+        }).catch(console.warn)
       }
+
       return Promise.reject(res.error || 'error')
     } else {
       return response.data
