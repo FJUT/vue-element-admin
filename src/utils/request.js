@@ -41,6 +41,14 @@ service.interceptors.response.use(
           duration: 5 * 1000
         })
         console.warn('request warn: ', message)
+      } else if (res.code === 1) {
+        message = res.message
+        Message({
+          message,
+          type: 'warn',
+          duration: 5 * 1000
+        })
+        console.warn('request warn: ', message)
       } else
       // 50008:非法的token; 50012:其他客户端登录了;  50014:Token 过期了;
       if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
