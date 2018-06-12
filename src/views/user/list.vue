@@ -119,7 +119,7 @@
           <el-date-picker v-model="temp.timestamp" type="datetime" placeholder="Please pick a date">
           </el-date-picker>
         </el-form-item> -->
-        <el-form-item :label="$t('user.login_name')" prop="login_name">
+        <el-form-item :label="$t('user.login_name')" prop="login_name" :error="errors.login_name">
           <el-input v-model="temp.login_name"></el-input>
         </el-form-item>
         <el-form-item :label="$t('user.login_password')" prop="login_password">
@@ -137,7 +137,7 @@
         <!-- <el-form-item :label="$t('table.importance')">
           <el-rate style="margin-top:8px;" v-model="temp.importance" :colors="['#99A9BF', '#F7BA2A', '#FF9900']" :max='3'></el-rate>
         </el-form-item> -->
-        <el-form-item :label="$t('user.user_info')">
+        <el-form-item :label="$t('user.user_info')" :error="errors.user_info">
           <!-- <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 4}" placeholder="Please input" v-model="temp.user_info">
           </el-input> -->
           <json-editor ref="jsonEditor" v-model="temp.user_info"></json-editor>
@@ -196,6 +196,7 @@ export default {
   data() {
     return {
       tableKey: 0,
+      errors: {},
       list: null,
       total: null,
       listLoading: true,
@@ -363,6 +364,9 @@ export default {
               type: 'success',
               duration: 2000
             })
+          }).catch(res => {
+            console.log(res)
+            this.errors = res.errors
           })
         }
       })

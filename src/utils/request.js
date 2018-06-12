@@ -33,6 +33,7 @@ service.interceptors.response.use(
     const res = response.data
     if (res.code !== 0) {
       let message = res.message
+      // 系统错误
       if (res.code === -1) {
         message = res.error
         Message({
@@ -41,6 +42,7 @@ service.interceptors.response.use(
           duration: 5 * 1000
         })
         console.warn('request warn: ', message)
+      // 警告
       } else if (res.code === 1) {
         message = res.message
         Message({
@@ -64,9 +66,19 @@ service.interceptors.response.use(
             location.reload()// 为了重新实例化vue-router对象 避免bug
           })
         }).catch(console.warn)
+      } else
+      // 表单校验错误
+      if (res.code === 2) {
+        const obj = {}
+        res.errors.map((v, i) => {
+          const key = Object.keys(v)[0]
+          const value = Object.values(v)[0]
+          obj[key] = obj[key] ? `${obj[key]},${value}` : value
+        })
+        res.errors = obj
       }
-
-      return Promise.reject(res.error || 'error')
+      console.log(res)
+      return Promise.reject(res || 'error')
     } else {
       return response.data
     }
