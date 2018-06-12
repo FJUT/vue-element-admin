@@ -122,7 +122,7 @@
         <el-form-item :label="$t('user.login_name')" prop="login_name" :error="errors.login_name">
           <el-input v-model="temp.login_name"></el-input>
         </el-form-item>
-        <el-form-item :label="$t('user.login_password')" prop="login_password">
+        <el-form-item :label="$t('user.login_password')" prop="login_password" :error="errors.login_password">
           <el-input v-model="temp.login_password" type="password"></el-input>
         </el-form-item>
         <el-form-item :label="$t('user.roles')" prop="roles">
@@ -319,8 +319,9 @@ export default {
     createData() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          this.temp.uuid = parseInt(Math.random() * 100) + 1024 // mock a id
-          this.temp.author = 'vue-element-admin'
+          this.errors = {}
+          // this.temp.uuid = parseInt(Math.random() * 100) + 1024 // mock a id
+          // this.temp.author = 'vue-element-admin'
           createArticle(this.temp).then((res) => {
             // console.log(res)
             this.list.unshift(res.data)
@@ -331,7 +332,9 @@ export default {
               type: 'success',
               duration: 2000
             })
-          }).catch(console.error)
+          }).catch(res => {
+            this.errors = res.errors
+          })
         }
       })
     },
@@ -347,6 +350,7 @@ export default {
     updateData() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
+          this.errors = {}
           const tempData = Object.assign({}, this.temp)
           tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
           updateArticle(tempData).then(() => {
