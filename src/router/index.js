@@ -71,7 +71,22 @@ export const asyncRouterMap = [
       name: 'user',
       meta: {
         title: 'user',
-        icon: 'lock'
+        icon: 'user'
+        // roles: 'useradmin'
+      }
+    }]
+  },
+  {
+    path: '/poster',
+    component: Layout,
+    children: [{
+      path: 'list',
+      component: _import('poster/list'),
+      name: 'poster',
+      meta: {
+        title: 'poster',
+        icon: 'star'
+        // roles: 'useradmin'
       }
     }]
   }
