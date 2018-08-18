@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/web': {
-        target: 'http://localhost:5757', // 接口的域名
+        target: 'http://127.0.0.1:5757', // 接口的域名
         // target: 'http://5v6owrzy.qcloud.la', // 接口的域名
         // secure: false,  // 如果是https接口，需要配置这个参数
         changeOrigin: true // 如果接口跨域，需要进行这个参数配置
@@ -23,7 +23,7 @@ module.exports = {
     },
 
     // Various Dev Server settings
-    host: 'localhost', // can be overwritten by process.env.HOST
+    host: '127.0.0.1', // can be overwritten by process.env.HOST
     port: 9527, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: true,
     errorOverlay: true,

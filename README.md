@@ -108,7 +108,7 @@ npm install
 npm run dev
 ```
 
-This will automatically open http://localhost:9527.
+This will automatically open http://127.0.0.1:9527.
 
 ## Build
 ```bash
