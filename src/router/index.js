@@ -42,17 +42,6 @@ export const constantRouterMap = [
       name: 'dashboard',
       meta: { title: 'dashboard', icon: 'dashboard', noCache: true }
     }]
-  },
-  {
-    path: '/documentation',
-    component: Layout,
-    redirect: '/documentation/index',
-    children: [{
-      path: 'index',
-      component: _import('documentation/index'),
-      name: 'documentation',
-      meta: { title: 'documentation', icon: 'documentation', noCache: true }
-    }]
   }
 ]
 
@@ -85,9 +74,26 @@ export const asyncRouterMap = [
       name: 'poster',
       meta: {
         title: 'poster',
-        icon: 'star'
-        // roles: 'useradmin'
+        icon: 'star',
+        roles: 'poster'
       }
+    }],
+    meta: {
+      title: 'poster',
+      icon: 'star',
+      roles: 'poster'
+    }
+  },
+  {
+    path: '/documentation',
+    component: Layout,
+    redirect: '/documentation/index',
+    meta: { title: 'documentation', icon: 'documentation', noCache: true, roles: 'admin' },
+    children: [{
+      path: 'index',
+      component: _import('documentation/index'),
+      name: 'documentation',
+      meta: { title: 'documentation', icon: 'documentation', noCache: true, roles: 'admin' }
     }]
   }
 

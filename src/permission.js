@@ -11,7 +11,7 @@ NProgress.configure({ showSpinner: false })// NProgress Configuration
 function hasPermission(roles, permissionRoles) {
   if (roles.indexOf('admin') >= 0) return true // admin permission passed directly
   if (!permissionRoles) return true
-  return roles.some(role => permissionRoles.indexOf(role) >= 0)
+  return roles.some(role => (role && permissionRoles.indexOf(role) >= 0))
 }
 
 const whiteList = ['/login', '/authredirect']// no redirect whitelist
