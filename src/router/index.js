@@ -66,6 +66,30 @@ export const asyncRouterMap = [
     }]
   },
   {
+    path: '/baby_party',
+    component: Layout,
+    meta: {
+      title: '百日小程序',
+      icon: 'star',
+      roles: 'baby_party'
+    },
+    children: [{
+      path: 'users',
+      component: _import('baby_party/users'),
+      name: 'baby_party_users',
+      meta: {
+        title: '报名信息'
+      }
+    }, {
+      path: 'partys',
+      component: _import('baby_party/partys'),
+      name: 'baby_party_partys',
+      meta: {
+        title: '聚会信息'
+      }
+    }]
+  },
+  {
     path: '/poster',
     component: Layout,
     children: [{
