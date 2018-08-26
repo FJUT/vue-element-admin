@@ -72,7 +72,7 @@
           <el-input v-model="temp.birth_city" disabled></el-input>
         </el-form-item>
         <el-form-item label="出生日期" prop="birth_day">
-          <el-input v-model="temp.birth_day" disabled></el-input>
+          <el-input v-model="getBirthday" disabled></el-input>
         </el-form-item>
         <el-form-item label="出生医院" prop="birth_hospital">
           <el-input v-model="temp.birth_hospital" disabled></el-input>
@@ -127,6 +127,7 @@
 
 <script>
 import { fetchUserList, updateApplyInfo } from '@/api/baby_party'
+import { parseTime } from '@/utils'
 
 export default {
   name: 'inlineEditTable',
@@ -164,6 +165,12 @@ export default {
         // birth_city: [{ required: true, message: 'password is required', trigger: 'blur' }]
       },
       errors: {}
+    }
+  },
+  computed: {
+    getBirthday: function(v) {
+      // console.log(v, this.temp.birth_day)
+      return parseTime(this.temp.birth_day, '{y}年{m}月{d}日')
     }
   },
   filters: {
