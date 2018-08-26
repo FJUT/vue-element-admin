@@ -15,3 +15,10 @@ export function fetchUserList(query) {
   })
 }
 
+export function updateApplyInfo(data) {
+  return request({
+    url: '/baby_party/users',
+    method: 'post',
+    data
+  })
+}

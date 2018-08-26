@@ -103,3 +103,11 @@ export function html2Text(val) {
 export function toThousandslsFilter(num) {
   return (+num || 0).toString().replace(/^-?\d+/g, m => m.replace(/(?=(?!\b)(\d{3})+$)/g, ','))
 }
+export function orderState(val) {
+  const map = {
+    '10': '待支付',
+    '20': '已支付',
+    '30': '已退款'
+  }
+  return map[val] || '未知'
+}
