@@ -1,6 +1,6 @@
 <template>
   <div class="app-container calendar-list-container">
-
+    <!-- 列表 -->
     <el-table :data="list" v-loading.body="listLoading" border fit highlight-current-row style="width: 100%">
 
       <el-table-column align="center" label="ID" width="80">
@@ -62,7 +62,12 @@
 
 
     </el-table>
-
+    <!-- 分页器 -->
+    <div class="pagination-container">
+      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="listQuery.page" :page-sizes="[10,20,30, 50]" :page-size="listQuery.limit" layout="total, sizes, prev, pager, next, jumper" :total="total">
+      </el-pagination>
+    </div>
+    <!-- 编辑窗口 -->
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form :rules="rules" ref="dataForm" :model="temp" label-position="left" label-width="70px" style='width: 400px; margin-left:50px;'>
         <el-form-item label="宝宝姓名" prop="baby_name">
@@ -133,6 +138,7 @@ export default {
   name: 'inlineEditTable',
   data() {
     return {
+      total: null,
       list: null,
       listLoading: true,
       dialogStatus: false,
@@ -153,7 +159,7 @@ export default {
       dialogFormVisible: false,
       listQuery: {
         page: 1,
-        limit: 100
+        limit: 10
       },
       textMap: {
         update: 'Edit',
@@ -187,9 +193,18 @@ export default {
     this.getList()
   },
   methods: {
+    handleSizeChange(val) {
+      this.listQuery.limit = val
+      this.getList()
+    },
+    handleCurrentChange(val) {
+      this.listQuery.page = val
+      this.getList()
+    },
     getList() {
       this.listLoading = true
       fetchUserList(this.listQuery).then(response => {
+        this.total = response.data.total
         const items = response.data.items || []
         this.list = items.map(v => {
           this.$set(v, 'edit', false) // https://vuejs.org/v2/guide/reactivity.html
