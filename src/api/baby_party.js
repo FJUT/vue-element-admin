@@ -22,3 +22,10 @@ export function updateApplyInfo(data) {
     data
   })
 }
+export function updatePartyInfo(data) {
+  return request({
+    url: '/baby_party/party',
+    method: 'post',
+    data
+  })
+}

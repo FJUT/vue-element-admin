@@ -111,3 +111,10 @@ export function orderState(val) {
   }
   return map[val] || '未知'
 }
+export function getNameStr(val) {
+  if (typeof val === 'string') {
+    val = JSON.parse(val)
+  }
+  const ret = val.map(v => v.name)
+  return ret.join(',')
+}
