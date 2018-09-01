@@ -54,11 +54,11 @@
           <el-input v-model="temp.party_types" disabled></el-input>
         </el-form-item>
         <el-form-item label="出生城市" prop="birth_citys" :error="errors.user_info">
-          <span @click="addCity">新增</span>
+          <span @click="addCity" class="btn">新增</span>
           <span v-for="(item, index) in temp.birth_citys" :key="index">
             <el-input v-model="item.name"></el-input>
             <el-checkbox class="filter-item" style='margin-left:15px;' v-model="item.isAvailable">可选</el-checkbox>
-            <span @click="delCity(index)">删除</span>
+            <span @click="delCity(index)" class="btn">删除</span>
           </span>
         </el-form-item>
         <!-- <el-select clearable style="width: 90px" class="filter-item" v-model="temp.party_types" placeholder="请选择">
@@ -68,17 +68,24 @@
         <el-form-item label="聚会时间" prop="party_time" :error="errors.party_time">
           <el-input v-model="temp.party_time"></el-input>
         </el-form-item>
+        
+        <el-form-item label="聚会说明" prop="party_intro" :error="errors.party_intro">
+          <el-input type="textarea" :autosize="{minRows:2}" v-model="temp.party_intro"></el-input>
+        </el-form-item>
         <el-form-item label="聚会地点" prop="party_place" :error="errors.party_place">
-          <el-input type="textarea" v-model="temp.party_place"></el-input>
+          <el-input type="textarea" :autosize="{minRows:2}" v-model="temp.party_place"></el-input>
         </el-form-item>
         <!-- <el-form-item label="创建时间" prop="create_time">
           <el-input v-model="temp.create_time"></el-input>
         </el-form-item> -->
         <el-form-item label="聚会安排" prop="party_flow" :error="errors.party_flow">
-          <el-input type="textarea" v-model="temp.party_flow"></el-input>
+          <el-input type="textarea" :autosize="{minRows:2}" v-model="temp.party_flow"></el-input>
         </el-form-item>
         <el-form-item label="聚会条件" prop="party_provide" :error="errors.party_provide">
-          <el-input type="textarea" v-model="temp.party_provide"></el-input>
+          <el-input type="textarea" :autosize="{minRows:2}" v-model="temp.party_provide"></el-input>
+        </el-form-item>
+        <el-form-item label="出生医院" prop="party_hospital" :error="errors.party_hospital">
+          <el-input type="textarea" :autosize="{minRows:2}" v-model="temp.party_hospital" placeholder="每行录入一个"></el-input>
         </el-form-item>
         <el-form-item label="价格（元/单人）" prop="party_price_single" :error="errors.party_price_single">
           <el-input v-model="temp.party_price_single"></el-input>
@@ -237,5 +244,12 @@ export default {
   position: absolute;
   right: 15px;
   top: 10px;
+}
+.btn {
+  color: #409EFF;
+  cursor: pointer;
+}
+.el-input.is-disabled .el-input__inner{
+  color: #222;
 }
 </style>

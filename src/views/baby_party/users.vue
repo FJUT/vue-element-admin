@@ -20,6 +20,16 @@
           <span>{{scope.row.baby_name}}</span>
         </template>
       </el-table-column>
+      <el-table-column width="120px" align="center" label="出生日期">
+        <template slot-scope="scope">
+          <span>{{scope.row.birth_day | parseTime('{y}年{m}月{d}日 {h}:{i}')}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column width="120px" align="center" label="出生医院">
+        <template slot-scope="scope">
+          <span>{{scope.row.birth_hospital}}</span>
+        </template>
+      </el-table-column>
 
       <el-table-column width="120px" align="center" label="家长姓名">
         <template slot-scope="scope">
@@ -42,11 +52,11 @@
           <span>{{scope.row.party_type}}</span>
         </template>
       </el-table-column>
-      <el-table-column width="120" align="center" label="流水号">
+      <!-- <el-table-column width="120" align="center" label="流水号">
         <template slot-scope="scope">
           <span>{{scope.row.flow_id}}</span>
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column width="120" align="center" label="出生城市">
         <template slot-scope="scope">
           <span>{{scope.row.birth_city}}</span>
@@ -267,6 +277,6 @@ export default {
   top: 10px;
 }
 .el-input.is-disabled .el-input__inner{
-  color: #888;
+  color: #222;
 }
 </style>
