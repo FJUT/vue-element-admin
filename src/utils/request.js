@@ -3,11 +3,9 @@ import { Message, MessageBox } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
 
-let baseURL
+let baseURL = process.env.BASE_API
 if (location.href.indexOf('env=prd') > -1) {
   baseURL = 'https://687100841.zaniliazhao.cn/web'
-} else {
-  baseURL = process.env.BASE_API
 }
 // create an axios instance
 const service = axios.create({
