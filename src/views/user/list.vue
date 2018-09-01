@@ -1,6 +1,7 @@
 <template>
   <div class="app-container calendar-list-container">
-    <div class="filter-container">
+    <!-- 过滤器 -->
+    <div class="filter-container" v-permission="['admin']">
       <el-input @keyup.enter.native="handleFilter" style="width: 200px;" class="filter-item" :placeholder="$t('user.keyword')" v-model="listQuery.keyword">
       </el-input>
       <el-select clearable style="width: 90px" class="filter-item" v-model="listQuery.importance" :placeholder="$t('table.importance')">
@@ -125,7 +126,7 @@
         <el-form-item :label="$t('user.login_password')" prop="login_password" :error="errors.login_password">
           <el-input v-model="temp.login_password" type="password"></el-input>
         </el-form-item>
-        <el-form-item :label="$t('user.roles')" prop="roles">
+        <el-form-item :label="$t('user.roles')" prop="roles" v-permission="['admin']">
           <el-input v-model="temp.roles"></el-input>
         </el-form-item>
         <!-- <el-form-item :label="$t('table.status')">
@@ -170,6 +171,7 @@ import { parseTime } from '@/utils'
 import Multiselect from 'vue-multiselect'// 使用的一个多选框组件，element-ui的select不能满足所有需求
 import 'vue-multiselect/dist/vue-multiselect.min.css'// 多选框组件css
 import JsonEditor from '@/components/JsonEditor'
+import permission from '@/directive/permission/index.js' // 权限判断指令
 
 // const uuidGenerator = require('uuid/v4')
 // console.log(uuidGenerator())
@@ -191,7 +193,8 @@ export default {
   name: 'complexTable',
   components: { Multiselect, JsonEditor },
   directives: {
-    waves
+    waves,
+    permission
   },
   data() {
     return {
