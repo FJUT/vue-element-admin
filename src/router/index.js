@@ -90,6 +90,24 @@ export const asyncRouterMap = [
     }]
   },
   {
+    path: '/LanXin',
+    component: Layout,
+    meta: {
+      title: '蓝信',
+      icon: 'star',
+      roles: 'LanXin'
+    },
+    children: [{
+      path: 'loan',
+      component: _import('LanXin/loan'),
+      name: 'LanXin_loan',
+      meta: {
+        icon: 'star',
+        title: '借贷审批'
+      }
+    }]
+  },
+  {
     path: '/poster',
     component: Layout,
     children: [{
