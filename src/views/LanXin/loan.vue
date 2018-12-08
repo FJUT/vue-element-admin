@@ -87,6 +87,9 @@
         <el-form-item label="身份证号" prop="idNo">
           <el-input v-model="temp.idNo" disabled></el-input>
         </el-form-item>
+        <el-form-item label="性别" prop="sex">
+          <el-input v-model="temp.sex" disabled></el-input>
+        </el-form-item>
         <el-form-item label="手机号" prop="phoneNumber">
           <el-input v-model="temp.phoneNumber" disabled></el-input>
         </el-form-item>
@@ -182,6 +185,35 @@ export default {
       this.listQuery.page = val
       this.getList()
     },
+    /**
+             * 通过身份证号码得到性别
+             *  身份证号码 return 1/2 男/女
+    */
+    getSexForCard(str) {
+      if (str && (str.length === 15 || str.length === 18)) {
+        var inputStr = str.toString()
+        var sex
+        var ret
+        if (inputStr.length === 18) {
+          sex = inputStr.charAt(16)
+          if (sex % 2 === 0) {
+            ret = 2
+          } else {
+            ret = 1
+          }
+        } else {
+          sex = inputStr.charAt(14)
+          if (sex % 2 === 0) {
+            ret = 2
+          } else {
+            ret = 1
+          }
+        }
+        return ret === 1 ? '男' : '女'
+      } else {
+        return '未知'
+      }
+    },
     getList() {
       this.listLoading = true
       fetchList(this.listQuery).then(response => {
@@ -199,6 +231,7 @@ export default {
     },
     handleUpdate(row) {
       this.temp = Object.assign({}, row) // copy obj
+      this.temp.sex = this.getSexForCard(this.temp.idNo)
       this.temp.timestamp = new Date(this.temp.timestamp)
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
