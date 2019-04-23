@@ -1,7 +1,7 @@
 <template>
   <div class="app-container calendar-list-container">
     <!-- 过滤器 -->
-    <div class="filter-container" v-permission="['admin']">
+    <div class="filter-container" v-permission="['admin', 'useradmin']">
       <el-input @keyup.enter.native="handleFilter" style="width: 200px;" class="filter-item" :placeholder="$t('user.keyword')" v-model="listQuery.keyword">
       </el-input>
       <el-select clearable style="width: 90px" class="filter-item" v-model="listQuery.importance" :placeholder="$t('table.importance')">
@@ -126,7 +126,7 @@
         <el-form-item :label="$t('user.login_password')" prop="login_password" :error="errors.login_password">
           <el-input v-model="temp.login_password" type="password"></el-input>
         </el-form-item>
-        <el-form-item :label="$t('user.roles')" prop="roles" v-permission="['admin']">
+        <el-form-item :label="$t('user.roles')" prop="roles" v-permission="['admin', 'useradmin']">
           <el-input v-model="temp.roles"></el-input>
         </el-form-item>
         <!-- <el-form-item :label="$t('table.status')">

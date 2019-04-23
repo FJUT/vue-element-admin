@@ -110,21 +110,54 @@ export const asyncRouterMap = [
   {
     path: '/poster',
     component: Layout,
+    meta: {
+      title: '海报',
+      icon: 'star',
+      roles: 'poster'
+    },
     children: [{
       path: 'list',
       component: _import('poster/list'),
-      name: 'poster',
+      name: 'poster/list',
       meta: {
-        title: 'poster',
-        icon: 'star',
-        roles: 'poster'
+        title: '列表',
+        icon: 'star'
       }
-    }],
+    }]
+  },
+  {
+    path: '/Weekly_Metting',
+    component: Layout,
     meta: {
-      title: 'poster',
+      title: '周例会',
       icon: 'star',
-      roles: 'poster'
-    }
+      roles: 'Weekly_Metting'
+    },
+    children: [{
+      path: 'meetings',
+      component: _import('weekly_meeting/meetings'),
+      name: 'weekly_meeting/meetings',
+      meta: {
+        icon: 'star',
+        title: '议程'
+      }
+    }, {
+      path: 'members',
+      component: _import('weekly_meeting/members'),
+      name: 'weekly_meeting/members',
+      meta: {
+        icon: 'star',
+        title: '成员管理'
+      }
+    }, {
+      path: 'projects',
+      component: _import('weekly_meeting/projects'),
+      name: 'weekly_meeting/projects',
+      meta: {
+        icon: 'star',
+        title: '项目管理'
+      }
+    }]
   },
   {
     path: '/documentation',
