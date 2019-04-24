@@ -126,12 +126,12 @@ export const asyncRouterMap = [
     }]
   },
   {
-    path: '/Weekly_Metting',
+    path: '/weekly_metting',
     component: Layout,
     meta: {
       title: '周例会',
       icon: 'star',
-      roles: 'Weekly_Metting'
+      roles: 'weekly_metting'
     },
     children: [{
       path: 'meetings',

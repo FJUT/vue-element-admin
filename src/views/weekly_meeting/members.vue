@@ -1,7 +1,7 @@
 <template>
   <div class="app-container calendar-list-container">
     <!-- 过滤器 -->
-    <div class="filter-container">
+    <div class="filter-container" v-permission="['admin', 'useradmin']">
       <el-button class="filter-item" style="margin-left: 10px;" @click="handleCreate" type="primary" icon="el-icon-edit">新增</el-button>
     </div>
     <!-- 列表 -->
@@ -25,15 +25,16 @@
         </template>
       </el-table-column>
 
-      <el-table-column width="120" align="center" label="UUID">
+      <el-table-column width="120" align="center" label="UUID" v-permission="['admin', 'useradmin']">
         <template slot-scope="scope">
           <span>{{scope.row.UUID}}</span>
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="Actions" width="120">
+      <el-table-column align="center" label="Actions" width="230">
         <template slot-scope="scope">
-          <el-button type="primary" @click="handleUpdate(scope.row)" size="small" icon="el-icon-edit">详情</el-button>
+          <el-button type="primary" @click="handleUpdate(scope.row)" size="small">更新</el-button>
+          <el-button v-if="scope.row.status!='deleted'" size="mini" type="danger" @click="handleModifyStatus(scope.row,'deleted')" v-permission="['admin', 'useradmin']">删除</el-button>
           <!-- <el-button type="" @click="clone" size="small" icon="el-icon-circle-check-outline">Clone</el-button> -->
         </template>
       </el-table-column>
@@ -65,11 +66,15 @@
 </template>
 
 <script>
-import { createMember, fetchUserList, updateMember } from '@/api/weekly_meeting'
+import { createMember, fetchUserList, updateMember, deleteMember } from '@/api/weekly_meeting'
 import { parseTime } from '@/utils'
+import permission from '@/directive/permission/index.js' // 权限判断指令
 
 export default {
   name: 'inlineEditTable',
+  directives: {
+    permission
+  },
   data() {
     return {
       total: null,
@@ -151,6 +156,27 @@ export default {
             this.errors = res.errors
           })
         }
+      })
+    },
+    handleModifyStatus(row, status) {
+      // console.log(row)
+      this.$confirm('是否确认删除： ' + row.name, '操作确认', {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        deleteMember({
+          id: row.id
+        }).then(res => {
+          this.getList()
+          this.$message({
+            message: '操作成功',
+            type: 'success'
+          })
+        })
+        // row.status = status
+      }).catch(() => {
+        return
       })
     },
     handleSizeChange(val) {

@@ -29,6 +29,13 @@ export function updateMember(data) {
     data
   })
 }
+export function deleteMember(data) {
+  return request({
+    url: '/weekly_meeting/members',
+    method: 'delete',
+    data
+  })
+}
 export function updatePartyInfo(data) {
   return request({
     url: '/weekly_meeting/meetings',
