@@ -139,7 +139,7 @@ export const asyncRouterMap = [
       name: 'weekly_meeting/meetings',
       meta: {
         icon: 'star',
-        title: '议程'
+        title: '会议列表'
       }
     }, {
       path: 'members',

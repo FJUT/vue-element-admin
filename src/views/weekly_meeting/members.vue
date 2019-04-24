@@ -49,7 +49,7 @@
     <!-- 编辑窗口 -->
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form :rules="rules" ref="dataForm" :model="temp" label-position="left" label-width="70px" style='width: 400px; margin-left:50px;'>
-        <el-form-item label="成员姓名" prop="baby_name">
+        <el-form-item label="成员姓名" prop="name">
           <el-input v-model="temp.name"></el-input>
         </el-form-item>
         <el-form-item label="UUID" prop="UUID">
