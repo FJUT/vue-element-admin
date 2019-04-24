@@ -19,15 +19,15 @@
         </template>
       </el-table-column>
 
-      <el-table-column width="120px" align="center" label="成员姓名">
+      <el-table-column width="120px" align="center" label="会议名称">
         <template slot-scope="scope">
           <span>{{scope.row.name}}</span>
         </template>
       </el-table-column>
 
-      <el-table-column width="120" align="center" label="UUID" v-permission="['admin', 'useradmin']">
+      <el-table-column width="120" align="center" label="owner" v-permission="['admin', 'useradmin']">
         <template slot-scope="scope">
-          <span>{{scope.row.UUID}}</span>
+          <span>{{scope.row.owner}}</span>
         </template>
       </el-table-column>
 
@@ -49,11 +49,11 @@
     <!-- 编辑窗口 -->
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form :rules="rules" ref="dataForm" :model="temp" label-position="left" label-width="70px" style='width: 400px; margin-left:50px;'>
-        <el-form-item label="成员姓名" prop="baby_name">
+        <el-form-item label="会议名称" prop="baby_name">
           <el-input v-model="temp.name"></el-input>
         </el-form-item>
-        <el-form-item label="UUID" prop="UUID">
-          <el-input v-model="temp.UUID"></el-input>
+        <el-form-item label="owner" prop="owner">
+          <el-input v-model="temp.owner"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import { createMember, fetchUserList, updateMember, deleteMember } from '@/api/weekly_meeting'
+import { createMeeting, fetchMeetingList, updateMeeting, deleteMeeting } from '@/api/weekly_meeting'
 import { parseTime } from '@/utils'
 import permission from '@/directive/permission/index.js' // 权限判断指令
 
@@ -83,7 +83,7 @@ export default {
       dialogStatus: false,
       temp: {
         name: '',
-        UUID: ''
+        owner: ''
       },
       dialogFormVisible: false,
       listQuery: {
@@ -125,7 +125,7 @@ export default {
     resetTemp() {
       this.temp = {
         name: '',
-        UUID: ''
+        owner: ''
       }
     },
     handleCreate() {
@@ -142,7 +142,7 @@ export default {
           this.errors = {}
           // this.temp.uuid = parseInt(Math.random() * 100) + 1024 // mock a id
           // this.temp.author = 'vue-element-admin'
-          createMember(this.temp).then((res) => {
+          createMeeting(this.temp).then((res) => {
             // console.log(res)
             this.getList()
             this.dialogFormVisible = false
@@ -165,7 +165,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        deleteMember({
+        deleteMeeting({
           id: row.id
         }).then(res => {
           this.getList()
@@ -189,7 +189,7 @@ export default {
     },
     getList() {
       this.listLoading = true
-      fetchUserList(this.listQuery).then(response => {
+      fetchMeetingList(this.listQuery).then(response => {
         this.total = response.data.total
         const items = response.data.items || []
         this.list = items.map(v => {
@@ -217,7 +217,7 @@ export default {
           this.errors = {}
           const tempData = Object.assign({}, this.temp)
           tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
-          updateMember(tempData).then(() => {
+          updateMeeting(tempData).then(() => {
             for (const v of this.list) {
               if (v.id === this.temp.id) {
                 const index = this.list.indexOf(v)

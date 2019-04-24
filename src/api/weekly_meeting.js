@@ -1,13 +1,6 @@
 import request from '@/utils/request'
 
-export function fetchProjectList(query) {
-  return request({
-    url: '/weekly_meeting/projects',
-    method: 'get',
-    params: query
-  })
-}
-export function fetchUserList(query) {
+export function fetchMemberList(query) {
   return request({
     url: '/weekly_meeting/members',
     method: 'get',
@@ -36,6 +29,13 @@ export function deleteMember(data) {
     data
   })
 }
+export function fetchProjectList(query) {
+  return request({
+    url: '/weekly_meeting/projects',
+    method: 'get',
+    params: query
+  })
+}
 export function createProject(data) {
   return request({
     url: '/weekly_meeting/projects',
@@ -58,10 +58,32 @@ export function deleteProject(data) {
     data
   })
 }
-export function updatePartyInfo(data) {
+export function fetchMeetingList(query) {
   return request({
-    url: '/weekly_meeting/meetings',
+    url: '/weekly_meeting/meeting',
+    method: 'get',
+    params: query
+  })
+}
+export function createMeeting(data) {
+  return request({
+    url: '/weekly_meeting/meeting',
+    method: 'put',
+    params: data
+  })
+}
+
+export function updateMeeting(data) {
+  return request({
+    url: '/weekly_meeting/meeting',
     method: 'post',
+    data
+  })
+}
+export function deleteMeeting(data) {
+  return request({
+    url: '/weekly_meeting/meeting',
+    method: 'delete',
     data
   })
 }

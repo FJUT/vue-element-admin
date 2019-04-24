@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import { createMember, fetchUserList, updateMember, deleteMember } from '@/api/weekly_meeting'
+import { createMember, fetchMemberList, updateMember, deleteMember } from '@/api/weekly_meeting'
 import { parseTime } from '@/utils'
 import permission from '@/directive/permission/index.js' // 权限判断指令
 
@@ -189,7 +189,7 @@ export default {
     },
     getList() {
       this.listLoading = true
-      fetchUserList(this.listQuery).then(response => {
+      fetchMemberList(this.listQuery).then(response => {
         this.total = response.data.total
         const items = response.data.items || []
         this.list = items.map(v => {
