@@ -25,9 +25,9 @@
         </template>
       </el-table-column>
 
-      <el-table-column width="120" align="center" label="电话">
+      <el-table-column width="120" align="center" label="UUID">
         <template slot-scope="scope">
-          <span>{{scope.row.parent_tel}}</span>
+          <span>{{scope.row.UUID}}</span>
         </template>
       </el-table-column>
 
@@ -49,15 +49,15 @@
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form :rules="rules" ref="dataForm" :model="temp" label-position="left" label-width="70px" style='width: 400px; margin-left:50px;'>
         <el-form-item label="成员姓名" prop="baby_name">
-          <el-input v-model="temp.name" disabled></el-input>
+          <el-input v-model="temp.name"></el-input>
         </el-form-item>
-        <el-form-item label="电话" prop="parent_tel">
-          <el-input v-model="temp.parent_tel" disabled></el-input>
+        <el-form-item label="UUID" prop="UUID">
+          <el-input v-model="temp.UUID"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取消</el-button>
-        <el-button v-if="dialogStatus=='create'" type="primary" @click="createData">确认</el-button>
+        <el-button v-if="dialogStatus=='create'" type="primary" @click="createData">创建</el-button>
         <el-button v-else type="primary" @click="updateData">确认</el-button>
       </div>
     </el-dialog>
@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import { createMember, fetchUserList, updateApplyInfo } from '@/api/weekly_meeting'
+import { createMember, fetchUserList, updateMember } from '@/api/weekly_meeting'
 import { parseTime } from '@/utils'
 
 export default {
@@ -77,18 +77,8 @@ export default {
       listLoading: true,
       dialogStatus: false,
       temp: {
-        baby_name: '',
-        birth_day: '',
-        birth_hospital: '',
-        flow_id: '',
-        parent_attandance: '',
-        parent_name: '',
-        parent_tel: '',
-        party_type: '',
-        pay_deposit: '',
-        pay_prepay_id: '',
-        refund_amount: '',
-        refund_order_id: ''
+        name: '',
+        UUID: ''
       },
       dialogFormVisible: false,
       listQuery: {
@@ -129,11 +119,8 @@ export default {
   methods: {
     resetTemp() {
       this.temp = {
-        id: undefined,
-        timestamp: new Date(),
-        title: '',
-        status: 'published',
-        type: ''
+        name: '',
+        UUID: ''
       }
     },
     handleCreate() {
@@ -152,7 +139,7 @@ export default {
           // this.temp.author = 'vue-element-admin'
           createMember(this.temp).then((res) => {
             // console.log(res)
-            this.list.unshift(res.data)
+            this.getList()
             this.dialogFormVisible = false
             this.$notify({
               title: '成功',
@@ -204,9 +191,9 @@ export default {
           this.errors = {}
           const tempData = Object.assign({}, this.temp)
           tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
-          updateApplyInfo(tempData).then(() => {
+          updateMember(tempData).then(() => {
             for (const v of this.list) {
-              if (v.flow_id === this.temp.flow_id) {
+              if (v.id === this.temp.id) {
                 const index = this.list.indexOf(v)
                 this.list.splice(index, 1, this.temp)
                 break

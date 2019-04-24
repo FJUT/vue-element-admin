@@ -14,8 +14,15 @@ export function fetchUserList(query) {
     params: query
   })
 }
+export function createMember(data) {
+  return request({
+    url: '/weekly_meeting/members',
+    method: 'put',
+    params: data
+  })
+}
 
-export function updateApplyInfo(data) {
+export function updateMember(data) {
   return request({
     url: '/weekly_meeting/members',
     method: 'post',
