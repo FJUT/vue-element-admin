@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import { createMeeting, fetchMeetingList, updateMeeting, deleteMeeting } from '@/api/weekly_meeting'
+import { createTask, fetchTaskList, updateTask, deleteTask } from '@/api/weekly_meeting'
 import { parseTime } from '@/utils'
 import permission from '@/directive/permission/index.js' // 权限判断指令
 
@@ -137,7 +137,7 @@ export default {
       }
     },
     setTagsViewTitle() {
-      const title = this.lang === 'en' ? 'Edit Meeting' : '编辑会议'
+      const title = this.lang === 'en' ? 'Edit Task' : '编辑会议'
       const route = Object.assign({}, this.tempRoute, { title: `${title}-${this.id}` })
       this.$store.dispatch('updateVisitedView', route)
     },
@@ -155,7 +155,10 @@ export default {
           this.errors = {}
           // this.temp.uuid = parseInt(Math.random() * 100) + 1024 // mock a id
           // this.temp.author = 'vue-element-admin'
-          createMeeting(this.temp).then((res) => {
+          createTask({
+            ...this.temp,
+            meeting_id: this.id
+          }).then((res) => {
             // console.log(res)
             this.getDetail()
             this.dialogFormVisible = false
@@ -178,7 +181,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        deleteMeeting({
+        deleteTask({
           id: row.id
         }).then(res => {
           this.getDetail()
@@ -200,9 +203,12 @@ export default {
       this.listQuery.page = val
       this.getDetail()
     },
-    getDetail(id) {
+    getDetail() {
       this.listLoading = true
-      fetchMeetingList(this.listQuery).then(response => {
+      fetchTaskList({
+        meeting_id: this.id,
+        ...this.listQuery
+      }).then(response => {
         this.total = response.data.total
         const items = response.data.items || []
         this.list = items.map(v => {
@@ -231,7 +237,7 @@ export default {
           this.errors = {}
           const tempData = Object.assign({}, this.temp)
           tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
-          updateMeeting(tempData).then(() => {
+          updateTask(tempData).then(() => {
             for (const v of this.list) {
               if (v.id === this.temp.id) {
                 const index = this.list.indexOf(v)

@@ -87,3 +87,32 @@ export function deleteMeeting(data) {
     data
   })
 }
+export function fetchTaskList(query) {
+  return request({
+    url: '/weekly_meeting/task',
+    method: 'get',
+    params: query
+  })
+}
+export function createTask(data) {
+  return request({
+    url: '/weekly_meeting/task',
+    method: 'put',
+    params: data
+  })
+}
+
+export function updateTask(data) {
+  return request({
+    url: '/weekly_meeting/task',
+    method: 'post',
+    data
+  })
+}
+export function deleteTask(data) {
+  return request({
+    url: '/weekly_meeting/task',
+    method: 'delete',
+    data
+  })
+}
