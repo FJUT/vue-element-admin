@@ -134,6 +134,12 @@ export const asyncRouterMap = [
       roles: 'weekly_metting'
     },
     children: [{
+      path: 'meeting/:id(\\d+)',
+      component: _import('weekly_meeting/meeting'),
+      name: 'meeting/:id(\\d+)',
+      meta: { title: '会议详情', noCache: true, activeMenu: '/weekly_meeting/meetings' },
+      hidden: true
+    }, {
       path: 'meetings',
       component: _import('weekly_meeting/meetings'),
       name: 'weekly_meeting/meetings',

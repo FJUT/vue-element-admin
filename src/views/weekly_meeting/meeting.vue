@@ -21,9 +21,7 @@
 
       <el-table-column width="120px" align="center" label="会议名称">
         <template slot-scope="scope">
-          <router-link :to="'/weekly_metting/meeting/'+scope.row.id" class="link-type">
-            <span>{{scope.row.name}}</span>
-          </router-link>
+          <span>{{scope.row.name}}</span>
         </template>
       </el-table-column>
 
@@ -35,7 +33,6 @@
 
       <el-table-column align="center" label="Actions" width="230">
         <template slot-scope="scope">
-          <!-- <el-button type="" @click="handleLinkClick(scope.row.id)" size="small">查看</el-button> -->
           <el-button type="primary" @click="handleUpdate(scope.row)" size="small">更新</el-button>
           <el-button v-if="scope.row.status!='deleted'" size="mini" type="danger" @click="handleModifyStatus(scope.row,'deleted')" v-permission="['admin', 'useradmin']">删除</el-button>
           <!-- <el-button type="" @click="clone" size="small" icon="el-icon-circle-check-outline">Clone</el-button> -->
@@ -102,7 +99,9 @@ export default {
         // timestamp: [{ type: 'date', required: true, message: 'timestamp is required', trigger: 'change' }],
         // birth_city: [{ required: true, message: 'password is required', trigger: 'blur' }]
       },
-      errors: {}
+      errors: {},
+      id: 0,
+      tempRoute: {}
     }
   },
   computed: {
@@ -122,7 +121,13 @@ export default {
     }
   },
   created() {
-    this.getList()
+    this.id = this.$route.params && this.$route.params.id
+    console.log('id:', this.id)
+    this.getDetail()
+    // Why need to make a copy of this.$route here?
+    // Because if you enter this page and quickly switch tag, may be in the execution of the setTagsViewTitle function, this.$route is no longer pointing to the current page
+    // https://github.com/PanJiaChen/vue-element-admin/issues/1221
+    this.tempRoute = Object.assign({}, this.$route)
   },
   methods: {
     resetTemp() {
@@ -130,6 +135,11 @@ export default {
         name: '',
         owner: ''
       }
+    },
+    setTagsViewTitle() {
+      const title = this.lang === 'en' ? 'Edit Meeting' : '编辑会议'
+      const route = Object.assign({}, this.tempRoute, { title: `${title}-${this.id}` })
+      this.$store.dispatch('updateVisitedView', route)
     },
     handleCreate() {
       this.resetTemp()
@@ -147,7 +157,7 @@ export default {
           // this.temp.author = 'vue-element-admin'
           createMeeting(this.temp).then((res) => {
             // console.log(res)
-            this.getList()
+            this.getDetail()
             this.dialogFormVisible = false
             this.$notify({
               title: '成功',
@@ -171,7 +181,7 @@ export default {
         deleteMeeting({
           id: row.id
         }).then(res => {
-          this.getList()
+          this.getDetail()
           this.$message({
             message: '操作成功',
             type: 'success'
@@ -184,13 +194,13 @@ export default {
     },
     handleSizeChange(val) {
       this.listQuery.limit = val
-      this.getList()
+      this.getDetail()
     },
     handleCurrentChange(val) {
       this.listQuery.page = val
-      this.getList()
+      this.getDetail()
     },
-    getList() {
+    getDetail(id) {
       this.listLoading = true
       fetchMeetingList(this.listQuery).then(response => {
         this.total = response.data.total
@@ -203,6 +213,7 @@ export default {
           return v
         })
         this.listLoading = false
+        this.setTagsViewTitle()
       })
     },
     handleUpdate(row) {
