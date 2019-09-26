@@ -39,14 +39,19 @@
           <span>{{scope.row.last_visit_time | parseTime('{y}-{m}-{d} {h}:{i}')}}</span>
         </template>
       </el-table-column>
-      <el-table-column min-width="150px" :label="$t('user.open_id')">
+      <el-table-column min-width="160px" :label="$t('user.open_id')">
         <template slot-scope="scope">
           <span>{{scope.row.open_id}}</span>
         </template>
       </el-table-column>
-      <el-table-column min-width="150px" :label="$t('user.roles')">
+      <el-table-column min-width="110px" :label="$t('user.roles')">
         <template slot-scope="scope">
           <span>{{scope.row.roles}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column min-width="90px" :label="$t('user.avatarUrl')">
+        <template slot-scope="scope">
+          <img style="width:90px;" :src="parseJSON(scope.row.user_info).avatarUrl" alt=""/>
         </template>
       </el-table-column>
       <el-table-column min-width="150px" :label="$t('user.user_info')">
@@ -259,6 +264,15 @@ export default {
     this.getList()
   },
   methods: {
+    parseJSON(str = '{}') {
+      let ret = {}
+      try {
+        ret = JSON.parse(str)
+      } catch (error) {
+        ret = {}
+      }
+      return ret
+    },
     getList() {
       this.listLoading = true
       fetchList(this.listQuery).then(response => {
