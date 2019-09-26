@@ -48,9 +48,20 @@ const tagsView = {
     DEL_ALL_VIEWS: (state) => {
       state.visitedViews = []
       state.cachedViews = []
+    },
+    UPDATE_VISITED_VIEW: (state, view) => {
+      for (let v of state.visitedViews) {
+        if (v.path === view.path) {
+          v = Object.assign(v, view)
+          break
+        }
+      }
     }
   },
   actions: {
+    updateVisitedView({ commit }, view) {
+      commit('UPDATE_VISITED_VIEW', view)
+    },
     addVisitedViews({ commit }, view) {
       commit('ADD_VISITED_VIEWS', view)
     },
